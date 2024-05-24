@@ -70,11 +70,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -103,11 +103,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -136,11 +136,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -169,11 +169,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -202,11 +202,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -248,11 +248,11 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
@@ -281,38 +281,39 @@ class DataPage extends StatelessWidget {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(100))),
+                                BorderRadius.all(Radius.circular(100))),
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.transparent),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(1000))),
+                                BorderRadius.all(Radius.circular(1000))),
                         fillColor: Colors.white,
                       )),
                 ),
                 SizedBox(height: pageWidth / 16),
                 Center(
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white),
                         onPressed: () {
                           Service()
                               .apiCall(
-                              pregnancies: int.parse(gebelikSayisi.text),
-                              glucose: int.parse(glukozDegeri.text),
-                              blood_pressure:
-                              int.parse(kanBasinciDegeri.text),
-                              skin_thickness:
-                              int.parse(deriInceligiDegeri.text),
-                              insulin: int.parse(insulinDegeri.text),
-                              diabetes_pedigree_function:
-                              double.parse(soyagaciDegeri.text),
-                              bmi: weightIndex,
-                              age: int.parse(yas.text))
+                                  pregnancies: int.parse(gebelikSayisi.text),
+                                  glucose: int.parse(glukozDegeri.text),
+                                  blood_pressure:
+                                      int.parse(kanBasinciDegeri.text),
+                                  skin_thickness:
+                                      int.parse(deriInceligiDegeri.text),
+                                  insulin: int.parse(insulinDegeri.text),
+                                  diabetes_pedigree_function:
+                                      double.parse(soyagaciDegeri.text),
+                                  bmi: weightIndex,
+                                  age: int.parse(yas.text))
                               .then((value) => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ResultPage(
-                                    response: value,
-                                  ))));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ResultPage(
+                                            response: value,
+                                          ))));
                         },
                         child: Text(
                           S.of(context).calculateButton,
