@@ -8,12 +8,19 @@ class QuestionsPageViewModel extends ChangeNotifier {
 
   int liveIndex = 0;
 
-  double process = 0;
+  double process = 0.25;
 
   int minuteSelection = 5;
 
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController pregnanciesController = TextEditingController();
+  TextEditingController glucoseController = TextEditingController();
+  TextEditingController bloodPressuseController = TextEditingController();
+  TextEditingController skinThicknessController = TextEditingController();
+  TextEditingController insulinController = TextEditingController();
+  TextEditingController generationController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
 
   double bmiValue = 0.0;
 

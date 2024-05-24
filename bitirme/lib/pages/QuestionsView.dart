@@ -2,6 +2,8 @@
 
 import 'package:bitirme/Constants/Constants.dart';
 import 'package:bitirme/ViewModels/QuestionsPageViewModel.dart';
+import 'package:bitirme/pages/result_page.dart';
+import 'package:bitirme/services/service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -54,104 +56,57 @@ class _QuestionsViewState extends State<QuestionsView> {
                     ),
                   ],
                 ),
-                SizedBox(height: 42),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    return SlideTransition(
-                      child: child,
-                      position: Tween<Offset>(
-                              begin: Offset(0.0, -0.5), end: Offset(0.0, 0.0))
-                          .animate(animation),
-                    );
-                  },
-                  child: Text(
-                    context.watch<QuestionsPageViewModel>().questions[
-                        context.watch<QuestionsPageViewModel>().liveIndex],
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.manrope(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                  ),
-                ),
                 SizedBox(height: 32),
                 context.watch<QuestionsPageViewModel>().liveIndex == 0
-                    ? Column(
-                        children: [
-                          SizedBox(height: 24),
-                          Row(
-                            children: [
-                              Text(
-                                "Height",
-                                style: GoogleFonts.manrope(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 12),
-                          InfoTextfield(
-                            trailingText: "cm",
-                            controller: context
-                                .watch<QuestionsPageViewModel>()
-                                .heightController,
-                          ),
-                          SizedBox(height: 32),
-                          Row(
-                            children: [
-                              Text(
-                                "Weight",
-                                style: GoogleFonts.manrope(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 12),
-                          InfoTextfield(
-                            trailingText: "kg",
-                            controller: context
-                                .watch<QuestionsPageViewModel>()
-                                .weightController,
-                          ),
-                          SizedBox(height: 48),
-                          Row(
-                            children: [
-                              Text(
-                                "BMI : ",
-                                style: GoogleFonts.manrope(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white),
-                              ),
-                              Text(
-                                  context
-                                      .watch<QuestionsPageViewModel>()
-                                      .bmiValue
-                                      .toStringAsFixed(2),
-                                  style: GoogleFonts.manrope(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white)),
-                              SizedBox(width: 12),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    context
-                                        .read<QuestionsPageViewModel>()
-                                        .calculateBmiValue();
-                                  },
-                                  child: Text("Calculate"))
-                            ],
-                          )
-                        ],
-                      )
-                    : context.watch<QuestionsPageViewModel>().liveIndex == 3
-                        ? const Question1Buttons()
-                        : Text("deneme"),
+                    ? BmiCalculate()
+                    : context.watch<QuestionsPageViewModel>().liveIndex == 1
+                        ? QuestionsIndex1()
+                        : context.watch<QuestionsPageViewModel>().liveIndex == 2
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Insulin Value",
+                                    style: GoogleFonts.manrope(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 12),
+                                  InfoTextfield(
+                                      trailingText: "",
+                                      controller: context
+                                          .watch<QuestionsPageViewModel>()
+                                          .insulinController),
+                                  Text(
+                                    "How many generations have diabetes?",
+                                    style: GoogleFonts.manrope(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 12),
+                                  InfoTextfield(
+                                      trailingText: "",
+                                      controller: context
+                                          .watch<QuestionsPageViewModel>()
+                                          .generationController),
+                                  Text(
+                                    "Age",
+                                    style: GoogleFonts.manrope(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  SizedBox(height: 12),
+                                  InfoTextfield(
+                                      trailingText: "",
+                                      controller: context
+                                          .watch<QuestionsPageViewModel>()
+                                          .ageController),
+                                ],
+                              )
+                            : Text("deneme"),
                 Spacer(),
                 SafeArea(
                   child: Container(
@@ -192,6 +147,49 @@ class _QuestionsViewState extends State<QuestionsView> {
                             MaterialStateProperty.all(Colors.transparent),
                       ),
                       onPressed: () async {
+                        if (context.watch<QuestionsPageViewModel>().process ==
+                            0.75) {
+                          Service()
+                              .apiCall(
+                                  pregnancies: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .pregnanciesController
+                                      .text),
+                                  glucose: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .glucoseController
+                                      .text),
+                                  blood_pressure: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .bloodPressuseController
+                                      .text),
+                                  skin_thickness: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .skinThicknessController
+                                      .text),
+                                  insulin: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .insulinController
+                                      .text),
+                                  diabetes_pedigree_function: double.parse(
+                                      context
+                                          .watch<QuestionsPageViewModel>()
+                                          .generationController
+                                          .text),
+                                  bmi: context
+                                      .watch<QuestionsPageViewModel>()
+                                      .bmiValue,
+                                  age: int.parse(context
+                                      .watch<QuestionsPageViewModel>()
+                                      .ageController
+                                      .text))
+                              .then((value) => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ResultPage(
+                                            response: value,
+                                          ))));
+                        }
                         context.read<QuestionsPageViewModel>().incProcess();
                       },
                       child: Padding(
@@ -221,6 +219,138 @@ class _QuestionsViewState extends State<QuestionsView> {
   }
 }
 
+class QuestionsIndex1 extends StatelessWidget {
+  const QuestionsIndex1({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Number of Pregnancies",
+          style: GoogleFonts.manrope(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+            trailingText: "",
+            controller:
+                context.watch<QuestionsPageViewModel>().pregnanciesController),
+        Text(
+          "Glucose Value",
+          style: GoogleFonts.manrope(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+            trailingText: "",
+            controller:
+                context.watch<QuestionsPageViewModel>().glucoseController),
+        Text(
+          "Blood Pressure Value",
+          style: GoogleFonts.manrope(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+            trailingText: "",
+            controller: context
+                .watch<QuestionsPageViewModel>()
+                .bloodPressuseController),
+        Text(
+          "Skin Thickness Value",
+          style: GoogleFonts.manrope(
+              fontSize: 18, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+            trailingText: "",
+            controller: context
+                .watch<QuestionsPageViewModel>()
+                .skinThicknessController),
+      ],
+    );
+  }
+}
+
+class BmiCalculate extends StatelessWidget {
+  const BmiCalculate({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 24),
+        Row(
+          children: [
+            Text(
+              "Height",
+              style: GoogleFonts.manrope(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+          trailingText: "cm",
+          controller: context.watch<QuestionsPageViewModel>().heightController,
+        ),
+        SizedBox(height: 32),
+        Row(
+          children: [
+            Text(
+              "Weight",
+              style: GoogleFonts.manrope(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        InfoTextfield(
+          trailingText: "kg",
+          controller: context.watch<QuestionsPageViewModel>().weightController,
+        ),
+        SizedBox(height: 48),
+        Row(
+          children: [
+            Text(
+              "BMI : ",
+              style: GoogleFonts.manrope(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white),
+            ),
+            Text(
+                context
+                    .watch<QuestionsPageViewModel>()
+                    .bmiValue
+                    .toStringAsFixed(2),
+                style: GoogleFonts.manrope(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white)),
+            SizedBox(width: 12),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<QuestionsPageViewModel>().calculateBmiValue();
+                },
+                child: Text("Calculate"))
+          ],
+        )
+      ],
+    );
+  }
+}
+
 class InfoTextfield extends StatelessWidget {
   String trailingText;
   TextEditingController controller;
@@ -230,31 +360,41 @@ class InfoTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.centerRight,
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.number,
-          controller: controller,
-          style: GoogleFonts.manrope(fontSize: 16, color: Colors.white),
-          decoration: InputDecoration(
-              focusColor: Colors.white,
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.5, color: Colors.white)),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.5, color: Colors.white)),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.5, color: Colors.white))),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 12.0),
-          child: Text(
-            trailingText,
-            style: GoogleFonts.manrope(
-                fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32.0),
+      child: Stack(
+        alignment: Alignment.centerRight,
+        children: [
+          SizedBox(
+            height: 42,
+            child: TextFormField(
+              keyboardType: TextInputType.number,
+              controller: controller,
+              scrollPadding: EdgeInsets.all(0),
+              style: GoogleFonts.manrope(fontSize: 16, color: Colors.white),
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 12),
+                  focusColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0.5, color: Colors.white)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0.5, color: Colors.white)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 0.5, color: Colors.white))),
+            ),
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: Text(
+              trailingText,
+              style: GoogleFonts.manrope(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
