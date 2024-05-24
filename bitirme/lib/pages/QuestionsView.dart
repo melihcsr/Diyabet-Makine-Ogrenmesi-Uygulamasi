@@ -147,7 +147,9 @@ class _QuestionsViewState extends State<QuestionsView> {
                             MaterialStateProperty.all(Colors.transparent),
                       ),
                       onPressed: () async {
-                        if (context.watch<QuestionsPageViewModel>().process ==
+                        if (Provider.of<QuestionsPageViewModel>(context,
+                                    listen: false)
+                                .process ==
                             0.75) {
                           Service()
                               .apiCall(
