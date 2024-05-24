@@ -153,38 +153,27 @@ class _QuestionsViewState extends State<QuestionsView> {
                             0.75) {
                           Service()
                               .apiCall(
-                                  pregnancies: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .pregnanciesController
-                                      .text),
-                                  glucose: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .glucoseController
-                                      .text),
-                                  blood_pressure: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .bloodPressuseController
-                                      .text),
-                                  skin_thickness: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .skinThicknessController
-                                      .text),
-                                  insulin: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .insulinController
-                                      .text),
-                                  diabetes_pedigree_function: double.parse(
-                                      context
-                                          .watch<QuestionsPageViewModel>()
-                                          .generationController
+                                  pregnancies: int.parse(
+                                      Provider.of<QuestionsPageViewModel>(context, listen: false)
+                                          .pregnanciesController
                                           .text),
-                                  bmi: context
-                                      .watch<QuestionsPageViewModel>()
-                                      .bmiValue,
-                                  age: int.parse(context
-                                      .watch<QuestionsPageViewModel>()
-                                      .ageController
-                                      .text))
+                                  glucose: int.parse(
+                                      Provider.of<QuestionsPageViewModel>(context, listen: false)
+                                          .glucoseController
+                                          .text),
+                                  blood_pressure: int.parse(
+                                      Provider.of<QuestionsPageViewModel>(context, listen: false)
+                                          .bloodPressuseController
+                                          .text),
+                                  skin_thickness: int.parse(
+                                      Provider.of<QuestionsPageViewModel>(context, listen: false)
+                                          .skinThicknessController
+                                          .text),
+                                  insulin:
+                                      int.parse(Provider.of<QuestionsPageViewModel>(context, listen: false).insulinController.text),
+                                  diabetes_pedigree_function: double.parse(Provider.of<QuestionsPageViewModel>(context, listen: false).generationController.text),
+                                  bmi: Provider.of<QuestionsPageViewModel>(context, listen: false).bmiValue,
+                                  age: int.parse(Provider.of<QuestionsPageViewModel>(context, listen: false).ageController.text))
                               .then((value) => Navigator.push(
                                   context,
                                   MaterialPageRoute(
