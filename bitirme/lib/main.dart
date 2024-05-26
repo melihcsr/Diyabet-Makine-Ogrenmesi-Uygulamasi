@@ -1,9 +1,11 @@
 import 'package:bitirme/ViewModels/QuestionsPageViewModel.dart';
+import 'package:bitirme/models/result_model.dart';
 import 'package:bitirme/pages/OnboardingView.dart';
 import 'package:bitirme/pages/QuestionsView.dart';
 import 'package:bitirme/pages/data_page.dart';
 import 'package:bitirme/pages/first_page.dart';
 import 'package:bitirme/pages/onboarding_page.dart';
+import 'package:bitirme/pages/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Diyabet',
         debugShowCheckedModeBanner: false,
-        home: QuestionsView(),
+        home: OnboardingView(),
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

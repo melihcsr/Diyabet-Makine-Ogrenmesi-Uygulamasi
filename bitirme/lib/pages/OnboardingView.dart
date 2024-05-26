@@ -1,4 +1,5 @@
 import 'package:bitirme/Constants/Constants.dart';
+import 'package:bitirme/pages/QuestionsView.dart';
 import 'package:bitirme/pages/first_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,13 @@ class _OnboardingViewState extends State<OnboardingView> {
       body: OnBoardingSlider(
         pageBackgroundColor: greenGradientEnd,
         headerBackgroundColor: greenGradientEnd,
-        finishButtonText: 'Register',
+        finishButtonText: 'Analize Başla!',
+        skipTextButton: Text(""),
+        trailing: Text(""),
         centerBackground: true,
         onFinish: () {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const FirstPage()),
+              MaterialPageRoute(builder: (context) => const QuestionsView()),
               (Route<dynamic> route) => false);
         },
         finishButtonStyle: FinishButtonStyle(
@@ -54,34 +57,24 @@ class _OnboardingViewState extends State<OnboardingView> {
               fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Image.asset(
-              'images/onboarding4.png',
-              fit: BoxFit.cover,
-            ),
-          ),
         ],
-        totalPage: 4,
+        totalPage: 3,
         speed: 1,
         pageBodies: [
           OnboardingInfoWidget(
-            title: "STRESS LESS.",
+            title: "Hoş Geldiniz",
             subtitle:
-                "Make mindfulness a daily habit and be kind to your mind.",
+                "Sağlıklı bir yaşamın anahtarını keşfedin. Başlamak için devam edin!",
           ),
           OnboardingInfoWidget(
-            title: "RELAX MORE.",
+            title: "Diyabet Nedir?",
             subtitle:
-                "Unwind and find serenity in a guided meditation sessions.",
+                "Diyabet, kandaki şeker seviyelerinin sürekli yüksek olması durumudur.",
           ),
           OnboardingInfoWidget(
-            title: "SLEEP LONGER.",
-            subtitle: "Calm racing mind and prepare your body for deep sleep.",
-          ),
-          OnboardingInfoWidget(
-            title: "LIVE BETTER.",
-            subtitle: "Invest in personal sense of inner peace and balance.",
+            title: "Nasıl Çalışır?",
+            subtitle:
+                "Sizden istenen bilgileri doldurun ve sizin için diyabet tahmini yapalım.",
           ),
         ],
       ),

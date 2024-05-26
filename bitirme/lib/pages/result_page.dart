@@ -12,50 +12,55 @@ class ResultPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
-      body: Center(
-          child: Column(
+      backgroundColor: Color.fromRGBO(6, 51, 40, 1),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                children: [
-                  Text(
-                    S.of(context).testResult,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    ": ${response!.outcome.toString()}",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
+              Text(
+                S.of(context).testResult,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 70),
-              Row(
-                children: [
-                  Text(
-                    S.of(context).diseaseStatus,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    ": ${response!.prediction.toString()}",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ],
+              Text(
+                ": ${response!.outcome.toString()}",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
               ),
             ],
-          )),
+          ),
+          SizedBox(height: 70),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "${S.of(context).diseaseStatus} : ",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "${response!.prediction.toString()}",
+                  maxLines: null,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
