@@ -21,7 +21,7 @@ class _OnboardingViewState extends State<OnboardingView> {
       body: OnBoardingSlider(
         pageBackgroundColor: greenGradientEnd,
         headerBackgroundColor: greenGradientEnd,
-        finishButtonText: 'Analize Başla!',
+        finishButtonText: 'Start to analysis!',
         skipTextButton: Text(""),
         trailing: Text(""),
         centerBackground: true,
@@ -62,19 +62,19 @@ class _OnboardingViewState extends State<OnboardingView> {
         speed: 1,
         pageBodies: [
           OnboardingInfoWidget(
-            title: "Hoş Geldiniz",
+            title: "Welcome",
             subtitle:
-                "Sağlıklı bir yaşamın anahtarını keşfedin. Başlamak için devam edin!",
+                "Discover the key to a healthy life. Go ahead to get started!",
           ),
           OnboardingInfoWidget(
-            title: "Diyabet Nedir?",
+            title: "What is diabetes?",
             subtitle:
-                "Diyabet, kandaki şeker seviyelerinin sürekli yüksek olması durumudur.",
+                "Diabetes is a condition in which blood sugar levels are constantly high.",
           ),
           OnboardingInfoWidget(
-            title: "Nasıl Çalışır?",
+            title: "How it works?",
             subtitle:
-                "Sizden istenen bilgileri doldurun ve sizin için diyabet tahmini yapalım.",
+                "Fill in the requested information and let us make a diabetes prediction for you.",
           ),
         ],
       ),

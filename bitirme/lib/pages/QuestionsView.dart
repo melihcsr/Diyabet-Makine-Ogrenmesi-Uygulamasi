@@ -151,6 +151,7 @@ class _QuestionsViewState extends State<QuestionsView> {
                                     listen: false)
                                 .process ==
                             0.75) {
+                          print("deneme");
                           Service()
                               .apiCall(
                                   pregnancies: int.parse(
@@ -330,11 +331,6 @@ class BmiCalculate extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: Colors.white)),
             SizedBox(width: 12),
-            ElevatedButton(
-                onPressed: () {
-                  context.read<QuestionsPageViewModel>().calculateBmiValue();
-                },
-                child: Text("Calculate"))
           ],
         )
       ],
@@ -362,6 +358,16 @@ class InfoTextfield extends StatelessWidget {
               keyboardType: TextInputType.number,
               controller: controller,
               scrollPadding: EdgeInsets.all(0),
+              onChanged: (value) {
+                if (double.parse(Provider.of<QuestionsPageViewModel>(context,
+                            listen: false)
+                        .weightController
+                        .text) !=
+                    0.0) {
+                  Provider.of<QuestionsPageViewModel>(context, listen: false)
+                      .calculateBmiValue();
+                }
+              },
               style: GoogleFonts.manrope(fontSize: 16, color: Colors.white),
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(left: 12),
